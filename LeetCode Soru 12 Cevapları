@@ -1,0 +1,35 @@
+function triAcorLinNum (x){
+    let value =0
+    let hold = x 
+    while (hold >= 2){
+        value = value + ((3*hold)-3) 
+        if ( hold - 3 == 1){
+            value += 1
+            return value
+        }
+        hold -= 3
+    }
+    return value
+    
+}
+
+//retorna um arr com todos os fatores 
+function factorize(number) {
+var factors = []
+for (let i = 1; i <= number; i++) {
+    if (number % i == 0) {
+        factors.push(i)
+    }
+} return factors.length
+}
+
+function doIt(start, end, factSize){
+for (let i = start; i < end; i++){
+    if (factorize(triAcorLinNum(i)) >= factSize){
+        return triAcorLinNum(i)
+    }
+}
+return 'higher'
+}
+
+console.log(doIt(0,13000,500))
