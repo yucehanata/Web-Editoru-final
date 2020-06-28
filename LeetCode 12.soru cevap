@@ -1,0 +1,23 @@
+ var intToRoman = function(num) {
+  const mapNum = {1000: 'M', 500: 'D', 100: 'C', 50: 'L', 10: 'X', 5: 'V', 1: 'I'};
+  const nums = [1000, 500, 100, 50, 10, 5, 1];
+  const words = ['M', 'D', 'C', 'L', 'X', 'V', 'I'];
+  let r = '';
+  for (let i = 0; i < nums.length; i++) {
+    if (num >= nums[i]) {
+      // 
+      if (`${num}`[0] === '9') {
+        r += words[i + 1] + words[i - 1];
+        num %= +('1' + '0'.repeat(`${num}`.length - 1));
+      } else if (`${num}`[0] === '4') {
+        r += words[i] + words[i - 1];
+        num %= +('1' + '0'.repeat(`${num}`.length - 1));
+      } else {
+        r += words[i].repeat(parseInt(num / nums[i], 10));
+        num %= nums[i];
+      }
+    }
+  }
+  
+  return r;
+};
