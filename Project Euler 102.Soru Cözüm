@@ -1,0 +1,41 @@
+const p = (x, y) => ({ x, y });
+
+const intersect = (a, b, c, d) => {
+  const p1 = (b.x - a.x) / (b.y - a.y);
+  const p2 = (d.x - c.x) / (d.y - c.y);
+  let c1 = (p2 * a.y - p2 * c.y - a.x + c.x) / (p1 - p2);
+  let ip = p(a.x + p1 * c1, a.y + c1);
+  return (
+    ip.x >= Math.min(c.x, d.x) &&
+    ip.x <= Math.max(c.x, d.x) &&
+    ip.y <= Math.max(c.y, d.y) &&
+    ip.y >= Math.min(c.y, d.y)
+  );
+};
+
+const o = p(0, 0);
+
+const checkOr = (a, b, c) => {
+  return !(
+    intersect(a, b, c, o) ||
+    intersect(a, c, b, o) ||
+    intersect(b, c, a, o)
+  );
+};
+
+const fs = require("fs");
+let nums = fs
+  .readFileSync("./triangles.txt", "utf8")
+  .split("\n")
+  .filter(x => x !== "")
+  .map(x => x.split(",").map(y => parseInt(y)));
+let count = 0;
+
+console.time("Execution time");
+
+nums.forEach(
+  n => checkOr(p(n[0], n[1]), p(n[2], n[3]), p(n[4], n[5])) && count++,
+);
+console.log(count);
+
+console.timeEnd("Execution time");
